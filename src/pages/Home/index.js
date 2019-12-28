@@ -1,146 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 // Styles
 import { MdAddShoppingCart } from 'react-icons/md';
 import { ProductList } from './styles';
+// API
+import api from '../../services/api';
+// Utils
+import { formatPrice } from '../../util/format';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
+export default class Home extends Component {
+  state = {
+    products: [],
+  };
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
+  async componentDidMount() {
+    const response = await api.get('products');
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
+    this.setState({ products: response.data });
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
+    this.setState({
+      products: data,
+    });
+  }
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
+  render() {
+    const { products } = this.state;
+    return (
+      <ProductList>
+        {products.map(product => (
+          <li key={product.id}>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-everlast-cave-crossfit-masculino/06/AXB-2393-406/AXB-2393-406_detalhe2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tênis Crosstraining</strong>
-        <span>R$259,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+            <button type="button">
+              <div>
+                <MdAddShoppingCart size={16} color="#fff" /> 3
+              </div>
+              <span>Adicionar ao carrinho</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
 }
