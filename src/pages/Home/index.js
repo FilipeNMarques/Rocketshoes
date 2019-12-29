@@ -14,6 +14,7 @@ import { formatPrice } from '../../util/format';
 class Home extends Component {
   state = {
     products: [],
+    cart: [],
   };
 
   async componentDidMount() {
@@ -38,6 +39,7 @@ class Home extends Component {
 
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
     return (
       <ProductList>
         {products.map(product => (
@@ -51,7 +53,8 @@ class Home extends Component {
               onClick={() => this.handleAddProduct(product)}
             >
               <div>
-                <MdAddShoppingCart size={16} color="#fff" /> 3
+                <MdAddShoppingCart size={16} color="#fff" />{' '}
+                {amount[product.id]}
               </div>
               <span>Adicionar ao carrinho</span>
             </button>
@@ -62,7 +65,15 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+
+    return amount;
+  }, {}),
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CardActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapDispatchToProps, mapStateToProps)(Home);
