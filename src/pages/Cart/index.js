@@ -13,13 +13,13 @@ import { Container, ProductTable, Total } from './styles';
 // Utils
 import { formatPrice } from '../../util/format';
 
-function Cart({ cart, removeFromCart, updateAmount, total, subtotal }) {
+function Cart({ cart, removeFromCart, updateAmountRequest, total, subtotal }) {
   function increment(product) {
-    updateAmount(product.id, product.amount + 1);
+    updateAmountRequest(product.id, product.amount + 1);
   }
 
   function decrement(product) {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountRequest(product.id, product.amount - 1);
   }
 
   return (
@@ -35,13 +35,13 @@ function Cart({ cart, removeFromCart, updateAmount, total, subtotal }) {
         </thead>
         <tbody>
           {cart.map(product => (
-            <tr key={product.id}>
+            <tr>
               <td>
                 <img src={product.image} alt={product.title} />
               </td>
               <td>
                 <strong>{product.title}</strong>
-                <span>{product.formatedPrice}</span>
+                <span>{product.priceFormatted}</span>
               </td>
               <td>
                 <div>
